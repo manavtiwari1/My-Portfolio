@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Portfolio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --card: #16161f;
+      --accent: #c8ff00;
+      --accent2: #ff3cac;
+      --accent3: #00e5ff;
+      --text: #f0f0f5;
+      --muted: #7070a0;
+      --border: rgba(200, 255, 0, .12);
+      --fd: 'Bebas Neue', sans-serif;
+      --fh: 'Syne', sans-serif;
+      --fb: 'DM Sans', sans-serif
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fb);
+      min-height: 100vh;
+      overflow-x: hidden
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .4
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 68px;
+      background: rgba(10, 10, 15, .85);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--fd);
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-decoration: none
+    }
+
+    .nav-logo-img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(200, 255, 0, 0.2))
+    }
+
+    .nav-links {
+      display: flex;
+      gap: .3rem
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--fh);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: .5rem 1rem;
+      border-radius: 30px;
+      transition: color .2s, background .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center
+    }
+
+    .nav-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, .05)
+    }
+
+    .nav-btn.active {
+      color: var(--bg);
+      background: var(--accent)
+    }
+
+    .page-wrap {
+      padding-top: 68px;
+      animation: fadeIn .4s ease
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* HEADER */
+    .page-header {
+      padding: 5rem 4rem 3.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden
+    }
+
+    .page-header::after {
+      content: 'CONTACT';
+      position: absolute;
+      right: 2rem;
+      bottom: -2rem;
+      font-family: var(--fd);
+      font-size: 9rem;
+      color: rgba(255, 255, 255, .025);
+      pointer-events: none;
+      letter-spacing: 5px;
+      white-space: nowrap
+    }
+
+    .eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem
+    }
+
+    .page-title {
+      font-family: var(--fd);
+      font-size: clamp(3rem, 6vw, 6rem);
+      letter-spacing: 3px;
+      color: var(--text);
+      line-height: 1
+    }
+
+    .page-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      max-width: 500px;
+      line-height: 1.6
+    }
+
+    /* BIG CTA */
+    .big-cta {
+      padding: 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden
+    }
+
+    .big-cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap
+    }
+
+    .big-cta-text {
+      font-family: var(--fd);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: 2px;
+      color: var(--text);
+      line-height: 1.1
+    }
+
+    .big-cta-text span {
+      color: var(--accent)
+    }
+
+    .mailto-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      padding: 1rem 2.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 50px;
+      font-family: var(--fh);
+      font-size: .85rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      flex-shrink: 0
+    }
+
+    .mailto-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(200, 255, 0, .3)
+    }
+
+    /* SOCIAL LINKS */
+    .socials-section {
+      padding: 4rem;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .socials-section h2 {
+      font-family: var(--fd);
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 2rem
+    }
+
+    .socials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem
+    }
+
+    .soc-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.5rem 1.8rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .soc-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    .soc-card:hover {
+      transform: translateX(6px)
+    }
+
+    .soc-card.instagram:hover {
+      border-color: rgba(255, 60, 172, .5);
+      box-shadow: 0 8px 30px rgba(255, 60, 172, .1)
+    }
+
+    .soc-card.instagram::before {
+      background: linear-gradient(135deg, rgba(255, 60, 172, .04), transparent)
+    }
+
+    .soc-card.instagram:hover::before {
+      opacity: 1
+    }
+
+    .soc-card.whatsapp:hover {
+      border-color: rgba(37, 211, 102, .5);
+      box-shadow: 0 8px 30px rgba(37, 211, 102, .1)
+    }
+
+    .soc-card.linkedin:hover {
+      border-color: rgba(10, 102, 194, .5);
+      box-shadow: 0 8px 30px rgba(10, 102, 194, .1)
+    }
+
+    .soc-card.github:hover {
+      border-color: rgba(255, 255, 255, .2);
+      box-shadow: 0 8px 30px rgba(255, 255, 255, .05)
+    }
+
+    .soc-icon-wrap {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0
+    }
+
+    .ic-instagram {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)
+    }
+
+    .ic-whatsapp {
+      background: #25d366
+    }
+
+    .ic-linkedin {
+      background: #0a66c2
+    }
+
+    .ic-github {
+      background: #24292e
+    }
+
+    .soc-info {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem
+    }
+
+    .soc-platform {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    .soc-handle {
+      font-family: var(--fh);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .soc-desc {
+      font-size: .75rem;
+      color: var(--muted)
+    }
+
+    .soc-arrow {
+      margin-left: auto;
+      font-size: 1.2rem;
+      color: var(--muted);
+      transition: transform .25s, color .25s;
+      flex-shrink: 0
+    }
+
+    .soc-card:hover .soc-arrow {
+      transform: translateX(4px);
+      color: var(--accent)
+    }
+
+    /* FORM */
+    .form-section {
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: start
+    }
+
+    .form-info h3 {
+      font-family: var(--fh);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem
+    }
+
+    .form-info p {
+      font-size: .95rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2rem
+    }
+
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: 1rem 1.5rem;
+      background: rgba(200, 255, 0, .06);
+      border: 1px solid rgba(200, 255, 0, .15);
+      border-radius: 12px
+    }
+
+    .avail-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: blink 2s ease infinite;
+      flex-shrink: 0
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    .avail-text {
+      font-size: .82rem;
+      color: var(--text);
+      font-weight: 500
+    }
+
+    .avail-text strong {
+      color: var(--accent)
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem
+    }
+
+    .fgroup {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem
+    }
+
+    .flabel {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    .finput,
+    .ftextarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--fb);
+      font-size: .95rem;
+      padding: .9rem 1.2rem;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      resize: none;
+      width: 100%
+    }
+
+    .finput::placeholder,
+    .ftextarea::placeholder {
+      color: rgba(112, 112, 160, .5)
+    }
+
+    .finput:focus,
+    .ftextarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200, 255, 0, .08)
+    }
+
+    .ftextarea {
+      height: 140px
+    }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem
+    }
+
+    .submit-btn {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      cursor: pointer;
+      font-family: var(--fh);
+      font-size: .85rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 1rem;
+      border-radius: 12px;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(200, 255, 0, .3)
+    }
+
+    .submit-btn.sent {
+      background: var(--accent3);
+      color: var(--bg)
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem
+    }
+
+    .footer-text {
+      font-size: .78rem;
+      color: var(--muted)
+    }
+
+    .footer-text strong {
+      color: var(--accent)
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem
+    }
+
+    .footer-link {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s
+    }
+
+    .footer-link:hover {
+      color: var(--accent)
+    }
+
+    @media(max-width:900px) {
+      nav {
+        padding: 0 1rem
+      }
+
+      .nav-logo {
+        font-size: 1.3rem
+      }
+
+      .nav-btn {
+        font-size: .65rem;
+        padding: .4rem .6rem;
+        letter-spacing: 1px
+      }
+
+      .page-header,
+      .big-cta,
+      .socials-section,
+      .form-section {
+        padding: 3rem 1.5rem
+      }
+
+      .socials-grid {
+        grid-template-columns: 1fr
+      }
+
+      .form-section {
+        grid-template-columns: 1fr;
+        gap: 2.5rem
+      }
+
+      .frow {
+        grid-template-columns: 1fr
+      }
+
+      footer {
+        padding: 2rem 1.5rem
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="photos/logo.png" alt="logo" class="nav-logo-img">
+    </a>
+    <div class="nav-links">
+      <a class="nav-btn" href="index.html">Home</a>
+      <a class="nav-btn" href="about.html">About</a>
+      <a class="nav-btn" href="projects.html">Projects</a>
+      <a class="nav-btn active" href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- HEADER -->
+    <div class="page-header">
+      <div class="eyebrow">✦ Get In Touch</div>
+      <h1 class="page-title">CONTACT</h1>
+      <p class="page-sub">Have a project? Want to collaborate? Or just want to say hello? I'd love to hear from you.</p>
+    </div>
+
+    <!-- BIG CTA -->
+    <div class="big-cta">
+      <div class="big-cta-inner">
+        <div class="big-cta-text">Let's build something<br /><span>remarkable together.</span></div>
+        <a class="mailto-btn" href="mailto:manavaneja60@gmail.com" onclick="handleMailClick(event)">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-10 7L2 7" />
+          </svg>
+          Send an Email
+        </a>
+      </div>
+    </div>
+
+    <!-- SOCIAL LINKS -->
+    <div class="socials-section">
+      <h2>FIND ME ON</h2>
+      <div class="socials-grid">
+
+        <a class="soc-card instagram" href="https://instagram.com//imanavv_25" target="_blank">
+          <div class="soc-icon-wrap ic-instagram">📸</div>
+          <div class="soc-info">
+            <span class="soc-platform">Instagram</span>
+            <span class="soc-handle">@imanavv_25</span>
+            <span class="soc-desc">Creative work &amp; behind the scenes</span>
+          </div>
+          <span class="soc-arrow">→</span>
+        </a>
+
+        <a class="soc-card whatsapp" href="https://wa.me/+918929247508" target="_blank">
+          <div class="soc-icon-wrap ic-whatsapp">💬</div>
+          <div class="soc-info">
+            <span class="soc-platform">WhatsApp</span>
+            <span class="soc-handle">Chat with me</span>
+            <span class="soc-desc">Quick replies — fastest way to reach me</span>
+          </div>
+          <span class="soc-arrow">→</span>
+        </a>
+
+        <a class="soc-card linkedin" href="https://www.linkedin.com/in/manav-tiwari-0185651b2/" target="_blank">
+          <div class="soc-icon-wrap ic-linkedin">
+            <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24">
+              <path
+                d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.35-1.85 3.58 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .78 0 1.73v20.54C0 23.2.79 24 1.77 24h20.45c.99 0 1.78-.8 1.78-1.73V1.73C24 .78 23.21 0 22.22 0z" />
+            </svg>
+          </div>
+          <div class="soc-info">
+            <span class="soc-platform">LinkedIn</span>
+            <span class="soc-handle">Manav Tiwari</span>
+            <span class="soc-desc">Professional network &amp; work updates</span>
+          </div>
+          <span class="soc-arrow">→</span>
+        </a>
+
+        <a class="soc-card github" href="https://github.com/manavtiwari1" target="_blank">
+          <div class="soc-icon-wrap ic-github">
+            <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.48 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.28-1.55 3.28-1.23 3.28-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.3c0 .32.21.7.82.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </div>
+          <div class="soc-info">
+            <span class="soc-platform">GitHub</span>
+            <span class="soc-handle">Manav Tiwari</span>
+            <span class="soc-desc">Open source projects &amp; code</span>
+          </div>
+          <span class="soc-arrow">→</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-section">
+      <div class="form-info">
+        <h3>Send me a message</h3>
+        <p>Prefer email forms? Fill this out and I'll get back to you within 24 hours. I'm always excited about new
+          projects, creative ideas, and interesting collaborations.</p>
+        <div class="availability">
+          <div class="avail-dot"></div>
+          <div class="avail-text">Currently <strong>available</strong> for freelance &amp; full-time roles</div>
+        </div>
+      </div>
+
+      <form class="contact-form" action="https://formspree.io/f/manavaneja60@gmail.com" method="POST" id="contactForm">
+        <div class="frow">
+          <div class="fgroup">
+            <label class="flabel">First Name</label>
+            <input class="finput" type="text" name="firstName" placeholder="John" required />
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Last Name</label>
+            <input class="finput" type="text" name="lastName" placeholder="Doe" />
+          </div>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Email Address</label>
+          <input class="finput" type="email" name="email" placeholder="john@example.com" required />
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Subject</label>
+          <input class="finput" type="text" name="subject"
+            placeholder="Project inquiry / Collaboration / Just saying hi" />
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Message</label>
+          <textarea class="ftextarea" name="message" placeholder="Tell me about your project, timeline, and budget..."
+            required></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M22 2L11 13" />
+            <path d="M22 2L15 22 11 13 2 9z" />
+          </svg>
+          Send Message
+        </button>
+      </form>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-text">Crafted with ❤️ by <strong>Manav Tiwari</strong> · 2026</div>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="about.html">About</a>
+        <a class="footer-link" href="projects.html">Projects</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function handleMailClick(e) {
+      // Try to copy to clipboard as a fallback
+      navigator.clipboard.writeText('manavaneja60@gmail.com').then(() => {
+        const btn = e.currentTarget;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Email Copied!';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+        }, 3000);
+      });
+      // The mailto: will still trigger naturally
+    }
+
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const formData = new FormData(form);
+
+      // Visual feedback: Loading
+      btn.innerHTML = '<svg class="spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10" opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10" opacity="0.75"></path></svg> Sending...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch("https://formspree.io/f/manavaneja60@gmail.com", {
+          method: "POST",
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Message Sent!';
+          btn.classList.add('sent');
+          form.reset();
+        } else {
+          throw new Error('Failed to send');
+        }
+      } catch (error) {
+        btn.innerHTML = 'Error! Try Again';
+        btn.disabled = false;
+      }
+
+      setTimeout(() => {
+        btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9z"/></svg> Send Message';
+        btn.classList.remove('sent');
+        btn.disabled = false;
+      }, 5000);
+    });
+  </script>
+</body>
+
+</html>

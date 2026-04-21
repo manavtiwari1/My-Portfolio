@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home — Portfolio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --card: #16161f;
+      --accent: #c8ff00;
+      --accent2: #ff3cac;
+      --accent3: #00e5ff;
+      --text: #f0f0f5;
+      --muted: #7070a0;
+      --border: rgba(200, 255, 0, 0.12);
+      --fd: 'Bebas Neue', sans-serif;
+      --fh: 'Syne', sans-serif;
+      --fb: 'DM Sans', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fb);
+      min-height: 100vh;
+      overflow-x: hidden
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .4
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 68px;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .nav-logo {
+      font-family: var(--fd);
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-decoration: none
+    }
+
+    .nav-links {
+      display: flex;
+      gap: .3rem
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--fh);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: .5rem 1rem;
+      border-radius: 30px;
+      transition: color .2s, background .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center
+    }
+
+    .nav-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, .05)
+    }
+
+    .nav-btn.active {
+      color: var(--bg);
+      background: var(--accent)
+    }
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 4rem 3rem 4rem 4rem;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+      margin-top: 68px
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .b1 {
+      width: 520px;
+      height: 520px;
+      background: rgba(200, 255, 0, .08);
+      top: -100px;
+      right: 80px
+    }
+
+    .b2 {
+      width: 360px;
+      height: 360px;
+      background: rgba(255, 60, 172, .07);
+      bottom: 0;
+      left: -80px
+    }
+
+    .b3 {
+      width: 280px;
+      height: 280px;
+      background: rgba(0, 229, 255, .06);
+      top: 50%;
+      right: -40px
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(200, 255, 0, .1);
+      border: 1px solid rgba(200, 255, 0, .3);
+      color: var(--accent);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: .35rem .9rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem
+    }
+
+    .dot-pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.5s ease infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.7)
+      }
+    }
+
+    .hero-name {
+      font-family: var(--fd);
+      font-size: clamp(4rem, 7vw, 7.5rem);
+      line-height: .92;
+      letter-spacing: 3px;
+      color: var(--text);
+      margin-bottom: .5rem
+    }
+
+    .hero-name span {
+      color: var(--accent)
+    }
+
+    .hero-sub {
+      font-family: var(--fh);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 2rem
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #9090c0;
+      max-width: 430px;
+      margin-bottom: 2.5rem
+    }
+
+    .hero-social {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap
+    }
+
+    .soc-btn {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .75rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: var(--fh);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      border: none
+    }
+
+    .soc-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .4)
+    }
+
+    .btn-li {
+      background: #0a66c2;
+      color: #fff
+    }
+
+    .btn-gh {
+      background: #fff;
+      color: #0a0a0f
+    }
+
+    .btn-yt {
+      background: #ff0000;
+      color: #fff
+    }
+
+    /* ROLE CARDS */
+    .hero-right {
+      position: relative;
+      z-index: 1
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem
+    }
+
+    .role-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem 1.4rem;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .role-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(200, 255, 0, .04));
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    .role-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(200, 255, 0, .4);
+      box-shadow: 0 12px 40px rgba(200, 255, 0, .08)
+    }
+
+    .role-card:hover::before {
+      opacity: 1
+    }
+
+    .rc-pink:hover {
+      border-color: rgba(255, 60, 172, .5) !important;
+      box-shadow: 0 12px 40px rgba(255, 60, 172, .1) !important
+    }
+
+    .rc-cyan:hover {
+      border-color: rgba(0, 229, 255, .5) !important;
+      box-shadow: 0 12px 40px rgba(0, 229, 255, .1) !important
+    }
+
+    .role-icon {
+      font-size: 2rem;
+      margin-bottom: .8rem
+    }
+
+    .role-title {
+      font-family: var(--fh);
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: .35rem
+    }
+
+    .role-desc {
+      font-size: .75rem;
+      color: var(--muted);
+      line-height: 1.5
+    }
+
+    .rtag {
+      display: inline-block;
+      margin-top: .8rem;
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: .25rem .7rem;
+      border-radius: 20px
+    }
+
+    .tg {
+      background: rgba(200, 255, 0, .1);
+      color: var(--accent)
+    }
+
+    .tp {
+      background: rgba(255, 60, 172, .1);
+      color: var(--accent2)
+    }
+
+    .tc {
+      background: rgba(0, 229, 255, .1);
+      color: var(--accent3)
+    }
+
+    .to {
+      background: rgba(255, 160, 40, .1);
+      color: #ffa028
+    }
+
+    .tv {
+      background: rgba(160, 80, 255, .1);
+      color: #a050ff
+    }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      padding: 1rem 0;
+      background: var(--bg2)
+    }
+
+    .marquee-inner {
+      display: flex;
+      gap: 3rem;
+      white-space: nowrap;
+      animation: marquee 22s linear infinite
+    }
+
+    .marquee-inner span {
+      font-family: var(--fd);
+      font-size: 1rem;
+      letter-spacing: 3px;
+      color: var(--muted);
+      text-transform: uppercase;
+      flex-shrink: 0
+    }
+
+    .marquee-inner span.ac {
+      color: var(--accent)
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* STATS */
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      display: flex;
+      gap: 4rem;
+      flex-wrap: wrap
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem
+    }
+
+    .snum {
+      font-family: var(--fd);
+      font-size: 3rem;
+      color: var(--accent);
+      letter-spacing: 2px
+    }
+
+    .slbl {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted)
+    }
+
+    /* CTA */
+    .cta-strip {
+      padding: 3rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      border-top: 1px solid var(--border)
+    }
+
+    .cta-text {
+      font-family: var(--fh);
+      font-size: 1rem;
+      color: var(--muted)
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .85rem 2rem;
+      border-radius: 50px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--fh);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .2s, color .2s, transform .2s
+    }
+
+    .cta-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: translateY(-2px)
+    }
+
+    /* MOBILE */
+    @media(max-width:900px) {
+      nav {
+        padding: 0 1rem
+      }
+
+      .nav-logo {
+        font-size: 1.3rem
+      }
+
+      .nav-btn {
+        font-size: .65rem;
+        padding: .4rem .6rem;
+        letter-spacing: 1px
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 3rem 1.5rem
+      }
+
+      .hero-right {
+        display: none
+      }
+
+      .stats-strip,
+      .cta-strip {
+        padding: 2rem 1.5rem;
+        gap: 2rem
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="photos/logo.png" alt="logo" style="width:50px; height:50px;">
+    </a>
+
+    <div class="nav-links">
+      <a class="nav-btn active" href="index.html">Home</a>
+      <a class="nav-btn" href="about.html">About</a>
+      <a class="nav-btn" href="projects.html">Projects</a>
+      <a class="nav-btn" href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+
+    <div class="hero-left">
+      <div class="hero-tag"><span class="dot-pulse"></span> Available for Work</div>
+      <h1 class="hero-name">Manav<br /><span>Tiwari</span></h1>
+      <p class="hero-sub">Creative Technologist &amp; Digital Craftsman</p>
+      <p class="hero-desc">I craft data-driven insights, beautiful interfaces, scalable web experiences, compelling
+        content, and cinematic edits — all under one roof.</p>
+      <div class="hero-social">
+        <a class="soc-btn btn-li" href="https://www.linkedin.com/in/manav-tiwari-0185651b2/" target="_blank">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.35-1.85 3.58 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .78 0 1.73v20.54C0 23.2.79 24 1.77 24h20.45c.99 0 1.78-.8 1.78-1.73V1.73C24 .78 23.21 0 22.22 0z" />
+          </svg>
+          LinkedIn
+        </a>
+        <a class="soc-btn btn-gh" href="https://github.com/manavtiwari1" target="_blank">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.74-1.33-1.74-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.48 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.28-1.55 3.28-1.23 3.28-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.3c0 .32.21.7.82.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          GitHub
+        </a>
+        <a class="soc-btn btn-yt" href="https://www.youtube.com/@amplify_25" target="_blank" style="background:#d10707">
+          <span style="font-size:1.1rem;margin-right:.2rem">💬</span>
+          YouTube
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="roles-grid">
+        <div class="role-card">
+          <div class="role-icon">📊</div>
+          <div class="role-title">Data Analyst</div>
+          <div class="role-desc">Turning raw numbers into clear, actionable insights with precision.</div>
+          <span class="rtag tg">Analytics</span>
+        </div>
+        <div class="role-card rc-pink">
+          <div class="role-icon">🎨</div>
+          <div class="role-title">UI / UX Design</div>
+          <div class="role-desc">Designing interfaces that feel effortless and look extraordinary.</div>
+          <span class="rtag tp">Design</span>
+        </div>
+        <div class="role-card rc-cyan">
+          <div class="role-icon">💻</div>
+          <div class="role-title">Web Developer</div>
+          <div class="role-desc">Building fast, modern, and responsive web experiences.</div>
+          <span class="rtag tc">Code</span>
+        </div>
+        <div class="role-card">
+          <div class="role-icon">✍️</div>
+          <div class="role-title">Content Creator</div>
+          <div class="role-desc">Crafting stories and content that connect and convert.</div>
+          <span class="rtag to">Content</span>
+        </div>
+        <div class="role-card" style="grid-column:span 2">
+          <div class="role-icon">🎬</div>
+          <div class="role-title">Video Editing</div>
+          <div class="role-desc">Cinematic edits, motion design and storytelling that captivates audiences.</div>
+          <span class="rtag tv">Video</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span>Data Analysis</span><span class="ac">✦</span><span>UI Design</span><span class="ac">✦</span>
+      <span>Web Dev</span><span class="ac">✦</span><span>Content Creator</span><span class="ac">✦</span>
+      <span>Video Editing</span><span class="ac">✦</span><span>Data Analysis</span><span class="ac">✦</span>
+      <span>UI Design</span><span class="ac">✦</span><span>Web Dev</span><span class="ac">✦</span>
+      <span>Content Creator</span><span class="ac">✦</span><span>Video Editing</span><span class="ac">✦</span>
+      <span>Data Analysis</span><span class="ac">✦</span><span>UI Design</span><span class="ac">✦</span>
+      <span>Web Dev</span><span class="ac">✦</span><span>Content Creator</span><span class="ac">✦</span>
+      <span>Video Editing</span><span class="ac">✦</span>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat"><span class="snum">5+</span><span class="slbl">Skills</span></div>
+    <div class="stat"><span class="snum">1+</span><span class="slbl">Projects</span></div>
+    <div class="stat"><span class="snum">1+</span><span class="slbl">Years Exp.</span></div>
+    <div class="stat"><span class="snum">100%</span><span class="slbl">Dedication</span></div>
+  </div>
+
+  <div class="cta-strip">
+    <span class="cta-text">Ready to build something great?</span>
+    <a class="cta-btn" href="projects.html">View My Work →</a>
+    <a class="cta-btn" href="contact.html">Get In Touch</a>
+  </div>
+
+</body>
+
+</html>
