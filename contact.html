@@ -723,9 +723,9 @@
         </div>
       </div>
 
-      <form class="contact-form" id="contactForm"></form>
-      <input type="hidden" name="_subject" value="New Contact Message">
-      <input type="hidden" name="_captcha" value="false">
+      <form class="contact-form" action="https://formspree.io/f/xreroejn" method="POST" id="contactForm">
+        <input type="hidden" name="_subject" value="New Contact Message">
+        <input type="hidden" name="_captcha" value="false">
 
       <div class="frow">
         <div class="fgroup">
@@ -789,6 +789,7 @@
 
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', async function (e) {
+      e.preventDefault();
       const btn = document.getElementById('submitBtn');
       const formData = new FormData(form);
 
