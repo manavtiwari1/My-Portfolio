@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Portfolio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --card: #16161f;
+      --accent: #c8ff00;
+      --accent2: #ff3cac;
+      --accent3: #00e5ff;
+      --text: #f0f0f5;
+      --muted: #7070a0;
+      --border: rgba(200, 255, 0, .12);
+      --fd: 'Bebas Neue', sans-serif;
+      --fh: 'Syne', sans-serif;
+      --fb: 'DM Sans', sans-serif
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--fb);
+      min-height: 100vh;
+      overflow-x: hidden
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .4
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 68px;
+      background: rgba(10, 10, 15, .85);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--fd);
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-decoration: none
+    }
+
+    .nav-logo-img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(200, 255, 0, 0.2))
+    }
+
+    .nav-links {
+      display: flex;
+      gap: .3rem
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--fh);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: .5rem 1rem;
+      border-radius: 30px;
+      transition: color .2s, background .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center
+    }
+
+    .nav-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, .05)
+    }
+
+    .nav-btn.active {
+      color: var(--bg);
+      background: var(--accent)
+    }
+
+    .page-wrap {
+      padding-top: 68px;
+      animation: fadeIn .4s ease
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 5rem 4rem 3.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden
+    }
+
+    .page-header::after {
+      content: attr(data-bg);
+      position: absolute;
+      right: 2rem;
+      bottom: -2rem;
+      font-family: var(--fd);
+      font-size: 10rem;
+      color: rgba(255, 255, 255, .025);
+      pointer-events: none;
+      letter-spacing: 5px;
+      white-space: nowrap
+    }
+
+    .eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem
+    }
+
+    .page-title {
+      font-family: var(--fd);
+      font-size: clamp(3rem, 6vw, 6rem);
+      letter-spacing: 3px;
+      color: var(--text);
+      line-height: 1
+    }
+
+    /* ABOUT CONTENT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.3fr 1fr;
+      gap: 4rem;
+      padding: 5rem 4rem;
+      align-items: start;
+    }
+
+    .profile-pic-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+      margin-top: 0.5rem;
+    }
+
+    .profile-frame {
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      transform: translate(15px, 15px);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    .profile-pic-container:hover .profile-frame {
+      transform: translate(20px, 20px);
+    }
+
+    .profile-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      z-index: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-image-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(200, 255, 0, 0) 50%, rgba(10, 10, 15, 0.8) 100%);
+      pointer-events: none;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
+      filter: grayscale(20%) brightness(0.9);
+    }
+
+    .profile-pic-container:hover .profile-img {
+      transform: scale(1.04);
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .profile-corner {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-color: var(--accent);
+      border-style: solid;
+      z-index: 2;
+      transition: transform 0.4s ease;
+    }
+
+    .profile-corner.tl {
+      top: -8px;
+      left: -8px;
+      border-width: 2px 0 0 2px;
+    }
+
+    .profile-corner.tr {
+      top: -8px;
+      right: -8px;
+      border-width: 2px 2px 0 0;
+    }
+
+    .profile-corner.bl {
+      bottom: -8px;
+      left: -8px;
+      border-width: 0 0 2px 2px;
+    }
+
+    .profile-corner.br {
+      bottom: -8px;
+      right: -8px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .profile-pic-container:hover .profile-corner.tl {
+      transform: translate(-4px, -4px);
+    }
+
+    .profile-pic-container:hover .profile-corner.tr {
+      transform: translate(4px, -4px);
+    }
+
+    .profile-pic-container:hover .profile-corner.bl {
+      transform: translate(-4px, 4px);
+    }
+
+    .profile-pic-container:hover .profile-corner.br {
+      transform: translate(4px, 4px);
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #9090c0;
+      margin-bottom: 1.6rem
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 600
+    }
+
+    .highlight-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 1.5rem 1.8rem;
+      margin: 2rem 0
+    }
+
+    .highlight-box p {
+      margin: 0;
+      font-size: .95rem;
+      color: var(--muted);
+      font-style: italic
+    }
+
+    .highlight-box p strong {
+      color: var(--accent)
+    }
+
+    /* SKILLS */
+    .skills-col h3 {
+      font-family: var(--fh);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem
+    }
+
+    .skill-item {
+      margin-bottom: 1.4rem
+    }
+
+    .skill-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: .82rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+      color: var(--text)
+    }
+
+    .skill-pct {
+      color: var(--accent)
+    }
+
+    .skill-track {
+      height: 4px;
+      background: rgba(255, 255, 255, .06);
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+      animation: grow 1.6s ease forwards;
+      transform-origin: left;
+      transform: scaleX(0)
+    }
+
+    @keyframes grow {
+      to {
+        transform: scaleX(1)
+      }
+    }
+
+    /* TOOLS */
+    .tools-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-top: .6rem
+    }
+
+    .tool-tag {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: .28rem .75rem;
+      border-radius: 20px
+    }
+
+    .tg {
+      background: rgba(200, 255, 0, .1);
+      color: var(--accent)
+    }
+
+    .tp {
+      background: rgba(255, 60, 172, .1);
+      color: var(--accent2)
+    }
+
+    .tc {
+      background: rgba(0, 229, 255, .1);
+      color: var(--accent3)
+    }
+
+    .to {
+      background: rgba(255, 160, 40, .1);
+      color: #ffa028
+    }
+
+    .tv {
+      background: rgba(160, 80, 255, .1);
+      color: #a050ff
+    }
+
+    /* TIMELINE */
+    .timeline-section {
+      padding: 0 4rem 5rem
+    }
+
+    .timeline-section h2 {
+      font-family: var(--fd);
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 2.5rem
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border)
+    }
+
+    .tl-item {
+      display: flex;
+      gap: 2rem;
+      padding-bottom: 2.5rem;
+      position: relative
+    }
+
+    .tl-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      flex-shrink: 0;
+      margin-top: .2rem;
+      position: relative;
+      z-index: 1
+    }
+
+    .tl-body {}
+
+    .tl-year {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .3rem
+    }
+
+    .tl-title {
+      font-family: var(--fh);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .3rem
+    }
+
+    .tl-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    @media(max-width:1200px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .profile-pic-container {
+        grid-column: 1 / -1;
+        max-width: 380px;
+        margin: 0 auto 2rem;
+      }
+    }
+
+    @media(max-width:900px) {
+      nav {
+        padding: 0 1rem
+      }
+
+      .nav-logo {
+        font-size: 1.3rem
+      }
+
+      .nav-btn {
+        font-size: .65rem;
+        padding: .4rem .6rem;
+        letter-spacing: 1px
+      }
+
+      .page-header {
+        padding: 3rem 1.5rem 2.5rem
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 3rem 1.5rem
+      }
+
+      .timeline-section {
+        padding: 0 1.5rem 3rem
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="photos/logo.png" alt="logo" class="nav-logo-img">
+    </a>
+    <div class="nav-links">
+      <a class="nav-btn" href="index.html">Home</a>
+      <a class="nav-btn active" href="about.html">About</a>
+      <a class="nav-btn" href="projects.html">Projects</a>
+      <a class="nav-btn" href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="page-header" data-bg="ABOUT">
+      <div class="eyebrow">✦ Who I Am</div>
+      <h1 class="page-title">ABOUT ME</h1>
+    </div>
+
+    <div class="about-grid">
+      <div class="profile-pic-container">
+        <div class="profile-frame"></div>
+        <div class="profile-corner tl"></div>
+        <div class="profile-corner tr"></div>
+        <div class="profile-corner bl"></div>
+        <div class="profile-corner br"></div>
+        <div class="profile-image-wrapper">
+          <!-- Replace this placeholder with your actual profile picture -->
+          <img src="photos/manav.png" alt="Manav Tiwari" class="profile-img"
+            onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 500\' fill=\'%2316161f\'%3E%3Crect width=\'100%25\' height=\'100%25\'/%3E%3Cpath d=\'M200 120a60 60 0 1 0 0 120 60 60 0 0 0 0-120zm0 140c-66 0-120 40-120 90v50h240v-50c0-50-54-90-120-90z\' fill=\'%237070a0\' opacity=\'0.3\'/%3E%3C/svg%3E';">
+        </div>
+      </div>
+
+      <div class="about-text">
+        <p>My name is <strong>Manav Tiwari</strong>, a Delhi University student currently pursuing a Bachelor’s degree
+          in Computer Science. I am a creative professional who blends analytical thinking with design sensibility and
+          technical precision.</p>
+
+        <p>With experience across multiple domains including <strong>Data Analysis, UI/UX Design, Web Development,
+            Content Creation, and Video Editing</strong>, I bring a holistic perspective to every project. I’m not just
+          a specialist—I focus on building complete product experiences, from concept to execution.</p>
+        <div class="highlight-box">
+          <p><strong>"Design is not just what it looks like and feels like. Design is how it works."</strong><br />— My
+            philosophy in every project I take on.</p>
+        </div>
+
+        <p>I'm currently open to <strong>freelance projects, remote collaborations, and full-time
+            opportunities</strong>. Let's create something remarkable together.</p>
+      </div>
+
+      <div class="skills-col">
+        <h3>Core Skills</h3>
+        <div class="skill-item">
+          <div class="skill-top"><span>Data Analysis</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track">
+            <div class="skill-fill" style="width:90%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>UI / UX Design</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track">
+            <div class="skill-fill" style="width:85%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>Web Development</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track">
+            <div class="skill-fill" style="width:80%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>Content Creation</span><span class="skill-pct">88%</span></div>
+          <div class="skill-track">
+            <div class="skill-fill" style="width:88%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><span>Video Editing</span><span class="skill-pct">82%</span></div>
+          <div class="skill-track">
+            <div class="skill-fill" style="width:82%"></div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:2.5rem">Tools &amp; Technologies</h3>
+        <div class="tools-wrap">
+          <span class="tool-tag tg">Python</span>
+          <span class="tool-tag tg">SQL</span>
+          <span class="tool-tag tg">Tableau</span>
+          <span class="tool-tag tg">Excel</span>
+          <span class="tool-tag tc">React</span>
+          <span class="tool-tag tc">HTML/CSS</span>
+          <span class="tool-tag tc">JavaScript</span>
+          <span class="tool-tag to">Canva</span>
+          <span class="tool-tag tv">Premiere Pro</span>
+          <span class="tool-tag tv">After Effects</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline-section">
+      <h2>JOURNEY</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">🎓</div>
+          <div class="tl-body">
+            <div class="tl-year">2020</div>
+            <div class="tl-title">Started My Creative Journey</div>
+            <div class="tl-desc">Began exploring design, coding, and data — fell in love with building things that look
+              great and work even better.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">💼</div>
+          <div class="tl-body">
+            <div class="tl-year">2021-2024</div>
+            <div class="tl-title">Learning Skills</div>
+            <div class="tl-desc">Started learning UI/UX design, web development, content creation, and video editing.
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🚀</div>
+          <div class="tl-body">
+            <div class="tl-year">2024 – 2026 (March) </div>
+            <div class="tl-title">Grew Across All Disciplines</div>
+            <div class="tl-desc">Expanded into full UI/UX projects and data analytics consulting.
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">✦</div>
+          <div class="tl-body">
+            <div class="tl-year">Now</div>
+            <div class="tl-title">Open to New Opportunities</div>
+            <div class="tl-desc">Looking for exciting projects and collaborations — freelance, part-time, or full-time.
+              Let's build something great.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
